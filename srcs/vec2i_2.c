@@ -1,47 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec2.c                                             :+:      :+:    :+:   */
+/*   vec2i_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/06 23:47:29 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/07 00:06:14 by jleem            ###   ########.fr       */
+/*   Created: 2021/01/07 00:08:47 by jleem             #+#    #+#             */
+/*   Updated: 2021/01/07 00:08:49 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
-#include "math.h"
 
-t_vec2			vec2_add(t_vec2 u, t_vec2 v)
+t_vec2i			make_vec2i(int x, int y)
 {
-	t_vec2	ret;
+	t_vec2i	ret;
 
-	ret.x = u.x + v.x;
-	ret.y = u.y + v.y;
+	ret.x = x;
+	ret.y = y;
 	return (ret);
 }
 
-t_vec2			vec2_subtract(t_vec2 u, t_vec2 v)
+int				vec2i_square(t_vec2i v)
 {
-	t_vec2	ret;
-
-	ret.x = u.x - v.x;
-	ret.y = u.y - v.y;
-	return (ret);
+	return (v.x * v.x + v.y * v.y);
 }
 
-t_vec2			vec2_normalize(t_vec2 v)
+t_vec2i			vec2i_multiply(t_vec2i v, int k)
 {
-	t_vec2		ret;
-	float const	w = sqrtf(v.x * v.x + v.y * v.y);
+	t_vec2i	ret;
 
-	ret.x = v.x / w;
-	ret.y = v.y / w;
+	ret.x = v.x * k;
+	ret.y = v.y * k;
 	return (ret);
-}
-
-float			vec2_dot_product(t_vec2 u, t_vec2 v)
-{
-	return (u.x * v.x + u.y * v.y);
 }

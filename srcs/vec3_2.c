@@ -1,47 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec2.c                                             :+:      :+:    :+:   */
+/*   vec3_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/06 23:47:29 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/07 00:06:14 by jleem            ###   ########.fr       */
+/*   Created: 2021/01/06 13:00:36 by jleem             #+#    #+#             */
+/*   Updated: 2021/01/06 23:42:48 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
-#include "math.h"
 
-t_vec2			vec2_add(t_vec2 u, t_vec2 v)
+t_vec3			make_vec3(float x, float y, float z)
 {
-	t_vec2	ret;
+	t_vec3	ret;
 
-	ret.x = u.x + v.x;
-	ret.y = u.y + v.y;
+	ret.x = x;
+	ret.y = y;
+	ret.z = z;
 	return (ret);
 }
 
-t_vec2			vec2_subtract(t_vec2 u, t_vec2 v)
+float			vec3_square(t_vec3 v)
 {
-	t_vec2	ret;
-
-	ret.x = u.x - v.x;
-	ret.y = u.y - v.y;
-	return (ret);
+	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
-t_vec2			vec2_normalize(t_vec2 v)
+t_vec3			vec3_multiply(t_vec3 v, float k)
 {
-	t_vec2		ret;
-	float const	w = sqrtf(v.x * v.x + v.y * v.y);
+	t_vec3	ret;
 
-	ret.x = v.x / w;
-	ret.y = v.y / w;
+	ret.x = v.x * k;
+	ret.y = v.y * k;
+	ret.z = v.z * k;
 	return (ret);
-}
-
-float			vec2_dot_product(t_vec2 u, t_vec2 v)
-{
-	return (u.x * v.x + u.y * v.y);
 }

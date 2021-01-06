@@ -41,11 +41,24 @@ typedef struct	s_vec2
 t_vec2			vec2_add(t_vec2 u, t_vec2 v);
 t_vec2			vec2_subtract(t_vec2 u, t_vec2 v);
 float			vec2_dot_product(t_vec2 u, t_vec2 v);
-t_vec2			vec2_cross_product(t_vec2 u, t_vec2 v);
 t_vec2			vec2_normalize(t_vec2 v);
 
 t_vec2			make_vec2(float x, float y);
 t_vec2			vec2_multiply(t_vec2 v, float k);
 float			vec2_square(t_vec2 v);
+
+typedef struct	s_vec2i
+{
+	int			x;
+	int			y;
+}				t_vec2i;
+
+t_vec2i			vec2i_add(t_vec2i u, t_vec2i v);
+t_vec2i			vec2i_subtract(t_vec2i u, t_vec2i v);
+int				vec2i_dot_product(t_vec2i u, t_vec2i v);
+
+t_vec2i			make_vec2i(int x, int y);
+t_vec2i			vec2i_multiply(t_vec2i v, int k);
+int				vec2i_square(t_vec2i v);
 
 #endif
