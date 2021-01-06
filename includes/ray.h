@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 09:27:20 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/06 10:27:25 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/06 23:42:48 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 typedef struct	s_ray
 {
-	t_vector	origin;
-	t_vector	forward;
+	t_vec3		origin;
+	t_vec3		forward;
 }				t_ray;
 
 #endif
