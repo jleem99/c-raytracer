@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 10:30:27 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/07 16:05:07 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/08 07:39:15 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_hit			get_ray_intersection_from_object(t_ray *ray, t_object *obj)
 	float const		d_flat = vec3_dot_product(r_unit, d);
 	float const		e = obj->radius * obj->radius - (vec3_square(d) - d_flat * d_flat);
 
-	if (obj->type == sphere && e > 0)
+	if (obj->type == obj_type_sphere && e > 0)
 	{
 		ret.object = obj;
 		ret.location = vec3_multiply(r_unit, d_flat - sqrtf(e));

@@ -6,7 +6,7 @@
 #    By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/06 14:15:13 by jleem             #+#    #+#              #
-#    Updated: 2021/01/06 16:37:21 by jleem            ###   ########.fr        #
+#    Updated: 2021/01/08 07:36:45 by jleem            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ ARFLAGS		= -rcs
 SRCDIR		= srcs/
 INCDIR		= includes/
 
-SRCS		= $(wildcard $(SRCDIR)*.c)
+SRCS		= $(wildcard $(SRCDIR)*.c) # explicit (submodules)
 OBJS		= $(SRCS:.c=.o)
 NAME		= c-raytracer
 MODULENAME	= $(addsuffix .a, $(NAME))
