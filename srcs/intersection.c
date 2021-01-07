@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 10:30:27 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/07 00:31:48 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/07 16:05:07 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_hit			get_ray_intersection_from_object(t_ray *ray, t_object *obj)
 	{
 		ret.object = obj;
 		ret.location = vec3_multiply(r_unit, d_flat - sqrtf(e));
-		ret.distance = sqrtf(vec3_square(ret.location));
+		ret.distance = vec3_length(ret.location);
 		ret.location = vec3_add(ray->origin, ret.location);
 	}
 	else
@@ -37,6 +37,7 @@ t_hit			get_ray_intersection_from_object(t_ray *ray, t_object *obj)
 	}
 	return (ret);
 }
+
 t_hit			get_ray_intersection_from_scene(t_ray *ray, t_scene *scene)
 {
 	t_hit	ret;

@@ -32,7 +32,6 @@ t_trace			*raytrace(t_trace *trace)
 		return (raytrace(trace));
 }
 
-#include <stdio.h>
 void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *fp(int, int, int))
 {
 	int const	width = camera->viewport_dimension.x;
@@ -55,7 +54,6 @@ void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *fp(int, int,
 									vec3_multiply(camera->up, index_unit.y - 0.5));
 			trace->count = 1;
 			raytrace(trace);
-			// printf("|%d|%d|%d|\n", index.x, index.y, trace->color);
 			fp(index.x, index.y, trace->color);
 		}
 	}
