@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:57:58 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/06 16:27:16 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/08 10:05:17 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,11 @@ int				scene_push_object(t_scene *scene, t_object *obj)
 	scene->objects = objects;
 	scene->objects_num++;
 	return (1);
+}
+
+void			free_scene(t_scene *scene)
+{
+	free(scene->objects);
+	scene->objects = NULL;
+	scene->objects_num = 0;
 }
