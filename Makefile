@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/06 14:15:13 by jleem             #+#    #+#              #
-#    Updated: 2021/01/08 15:00:47 by jleem            ###   ########.fr        #
+#    Updated: 2021/01/09 13:49:17 by jleem            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -I$(INCDIR)
-LIBFLAGS	= -lm
+CFLAGS		= -Wall -Wextra -Werror -I$(INCDIR) -I$(LIBFTDIR)
+LIBFLAGS	= -lft -lm
 
 AR			= ar
 ARFLAGS		= -rcs
@@ -25,10 +25,16 @@ OBJS		= $(SRCS:.c=.o)
 NAME		= c-raytracer
 MODULENAME	= $(addsuffix .a, $(NAME))
 
+LIBFT			= $(addprefix $(LIBFTDIR), libft.a)
+LIBFTDIR		= ../../Libft/
+
 all			: $(NAME)
 
-$(NAME)		: $(OBJS)
+$(NAME)		: $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $^ main.c -o $(NAME)
+
+$(LIBFT)		:
+	$(MAKE) -C $(LIBFTDIR) bonus
 
 %.o			: %.c
 	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBFLAGS)

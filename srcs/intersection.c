@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 10:30:27 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/08 07:39:15 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/09 14:12:14 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ t_hit			get_ray_intersection_from_scene(t_ray *ray, t_scene *scene)
 
 	ret.object = NULL;
 	ret.distance = 0;
-	if (scene->objects_num == 0 ||
-		!(hits = malloc(sizeof(*hits) * scene->objects_num)))
+	if (scene->objects->size == 0 ||
+		!(hits = malloc(sizeof(*hits) * scene->objects->size)))
 		return (ret);
 	i = 0;
-	while (i < scene->objects_num)
+	while (i < scene->objects->size)
 	{
-		hits[i] = get_ray_intersection_from_object(ray, scene->objects[i]);
+		hits[i] = get_ray_intersection_from_object(ray, scene->objects->data[i]);
 		i++;
 	}
 	i = 0;
-	while (i < scene->objects_num)
+	while (i < scene->objects->size)
 	{
 		if (!ret.object || (hits[i].object && ret.distance > hits[i].distance))
 			ret = hits[i];
