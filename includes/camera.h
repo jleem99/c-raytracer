@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 22:59:04 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/07 12:30:08 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/09 19:05:30 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ typedef struct	s_camera
 	t_vec2i		viewport_dimension;
 }				t_camera;
 
-t_camera		make_camera(t_vec3 origin, t_vec3 fw, t_vec3 up, float fov, t_vec2i vp);
+t_camera		*make_camera(t_vec3 origin, t_vec3 fw, t_vec3 up, float fov, t_vec2i vp);
 
 #endif

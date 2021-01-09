@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 09:49:20 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/08 07:39:45 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/09 19:05:35 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ typedef struct		s_object
 	int				color;
 }					t_object;
 
-t_object			make_sphere(t_vec3 location, float radius, int color);
+t_object			*make_sphere(t_vec3 location, float radius, int color);
 
 #endif
