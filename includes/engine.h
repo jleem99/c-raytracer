@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/06 09:53:29 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/10 02:35:27 by jleem            ###   ########.fr       */
+/*   Created: 2021/01/10 02:36:06 by jleem             #+#    #+#             */
+/*   Updated: 2021/01/10 03:04:58 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#ifndef ENGINE_H
+# define ENGINE_H
 
-# include <stddef.h>
-# include "object.h"
-# include "libft_bonus.h"
+# include "scene.h"
+# include "trace.h"
 
-typedef struct	s_scene
+typedef struct	s_engine
 {
-	t_array		*objects;
-	t_array		*cameras;
-}				t_scene;
+	void		*mlx;
+	void		*mlx_win;
+	t_scene		*scene;
+	t_trace		*trace;
+}				t_engine;
 
-t_scene			*make_scene(void);
-void			free_scene(t_scene *scene);
+t_engine		*init_engine(void *mlx, void *mlx_win);
+void			free_engine(t_engine *engine);
 
 #endif
