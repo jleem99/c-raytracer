@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+         #
+#    By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/06 14:15:13 by jleem             #+#    #+#              #
-#    Updated: 2021/01/10 18:44:07 by jleem            ###   ########.fr        #
+#    Updated: 2021/01/11 00:30:48 by jleem            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC			= gcc
+CC			= clang
 CFLAGS		= -Wall -Wextra -Werror -I$(INCDIR) -I$(LIBFTDIR)
-LIBFLAGS	= -lft -lm
+# LIBFLAGS	= -lft -lm
 
 AR			= ar
 ARFLAGS		= -rcs
