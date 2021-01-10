@@ -6,7 +6,7 @@
 #    By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/06 14:15:13 by jleem             #+#    #+#              #
-#    Updated: 2021/01/10 03:13:54 by jleem            ###   ########.fr        #
+#    Updated: 2021/01/10 18:44:07 by jleem            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ fclean		: clean
 re			: fclean all
 
 # module_		: CFLAGS += -g3 -fsanitize=address
-module_		: CFLAGS += -O2
+# module_		: CFLAGS += -g -pg
+module_		: CFLAGS += -O3
 module_		: $(OBJS)
 	$(AR) $(ARFLAGS) $(MODULENAME) $^
 module		: fclean module_

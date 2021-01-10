@@ -32,7 +32,7 @@ t_trace			*raytrace(t_trace *trace)
 		return (raytrace(trace));
 }
 
-void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *fp(int, int, int))
+void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *put_pixel(int, int, int))
 {
 	int const	width = camera->viewport_dimension.x;
 	int const	height = camera->viewport_dimension.y;
@@ -54,7 +54,7 @@ void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *fp(int, int,
 									vec3_multiply(camera->up, index_unit.y - 0.5));
 			trace->count = 1;
 			raytrace(trace);
-			fp(index.x, index.y, trace->color);
+			put_pixel(index.x, index.y, trace->color);
 		}
 	}
 }

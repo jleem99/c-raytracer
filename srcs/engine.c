@@ -6,14 +6,14 @@
 /*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 02:38:26 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/10 03:04:53 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/10 17:49:31 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include <stdlib.h>
 
-t_engine		*init_engine(void *mlx, void *mlx_win)
+t_engine		*init_engine(void)
 {
 	t_engine	*engine;
 
@@ -25,8 +25,6 @@ t_engine		*init_engine(void *mlx, void *mlx_win)
 		free_engine(engine);
 		return (NULL);
 	}
-	engine->mlx = mlx;
-	engine->mlx_win = mlx_win;
 	engine->trace->scene = engine->scene;
 	return (engine);
 }

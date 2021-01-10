@@ -6,11 +6,12 @@
 /*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 10:30:27 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/09 14:12:14 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/10 18:32:10 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "intersection.h"
+#include <math.h>
 #include <stdlib.h>
 
 #include <stdio.h>

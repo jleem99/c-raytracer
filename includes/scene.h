@@ -6,14 +6,13 @@
 /*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 09:53:29 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/10 02:35:27 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/10 18:23:24 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
 
-# include <stddef.h>
 # include "object.h"
 # include "libft_bonus.h"
 

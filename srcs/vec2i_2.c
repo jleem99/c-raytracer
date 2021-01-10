@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vec2i_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 00:08:47 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/07 16:03:57 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/10 18:20:17 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
+#include <math.h>
 
 t_vec2i			make_vec2i(int x, int y)
 {

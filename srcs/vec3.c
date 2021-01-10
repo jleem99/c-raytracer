@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 09:38:58 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/07 00:06:38 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/10 18:20:45 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
-#include "math.h"
+#include <math.h>
 
 t_vec3			vec3_add(t_vec3 u, t_vec3 v)
 {
