@@ -38,6 +38,7 @@ void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *put_pixel(in
 	int const	height = camera->viewport_dimension.y;
 	t_vec2i		index;
 	t_vec2		index_unit;
+	t_vec3		temp;
 
 	trace->ray->origin = camera->origin;
 	for (index.y = height - 1; index.y >= 0; index.y--)
@@ -48,10 +49,10 @@ void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *put_pixel(in
 			index_unit.y = (float)index.y / (float)(height - 1);	// 0 to 1
 
 			trace->ray->forward = camera->forward;
-			trace->ray->forward = vec3_add(trace->ray->forward,
-									vec3_multiply(camera->right, index_unit.x - 0.5));
-			trace->ray->forward = vec3_add(trace->ray->forward,
-									vec3_multiply(camera->up, index_unit.y - 0.5));
+			temp = vec3_multiply(&camera->right, index_unit.x - 0.5);
+			trace->ray->forward = vec3_add(&trace->ray->forward, &temp);
+			temp = vec3_multiply(&camera->up, index_unit.y - 0.5);
+			trace->ray->forward = vec3_add(&trace->ray->forward, &temp);
 			trace->count = 1;
 			raytrace(trace);
 			put_pixel(index.x, index.y, trace->color);

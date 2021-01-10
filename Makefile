@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+         #
+#    By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/06 14:15:13 by jleem             #+#    #+#              #
-#    Updated: 2021/01/10 18:44:07 by jleem            ###   ########.fr        #
+#    Updated: 2021/01/11 00:09:39 by jleem            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ fclean		: clean
 re			: fclean all
 
 # module_		: CFLAGS += -g3 -fsanitize=address
-# module_		: CFLAGS += -g -pg
+# module_		: CFLAGS += -g3 -pg
 module_		: CFLAGS += -O3
 module_		: $(OBJS)
 	$(AR) $(ARFLAGS) $(MODULENAME) $^

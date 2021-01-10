@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
+/*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 23:19:13 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/09 19:09:43 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/11 00:21:55 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_camera		*make_camera(t_vec3 origin, t_vec3 fw, t_vec3 up, float fov, t_vec2i v
 {
 	t_camera	*camera;
 	float const	aspect_ratio = (float)vp.x / (float)vp.y;
+	t_vec3		temp;
 
 	if (!(camera = malloc(sizeof(t_camera))))
 		return (NULL);
@@ -27,10 +28,12 @@ t_camera		*make_camera(t_vec3 origin, t_vec3 fw, t_vec3 up, float fov, t_vec2i v
 	camera->focal_length = 1 / tanf(fov / 2);
 	camera->screen_dimension = make_vec2(2 * aspect_ratio, 2);
 	camera->viewport_dimension = vp;
-	camera->forward = vec3_multiply(vec3_normalize(fw), camera->focal_length);
-	camera->up = vec3_normalize(up);
-	camera->up = vec3_multiply(camera->up, camera->screen_dimension.y);
-	camera->right = vec3_normalize(vec3_cross_product(fw, up));
-	camera->right = vec3_multiply(camera->right, camera->screen_dimension.x);
+	temp = vec3_normalize(&fw);
+	camera->forward = vec3_multiply(&temp, camera->focal_length);
+	camera->up = vec3_normalize(&up);
+	camera->up = vec3_multiply(&camera->up, camera->screen_dimension.y);
+	temp = vec3_cross_product(&fw, &up);
+	camera->right = vec3_normalize(&temp);
+	camera->right = vec3_multiply(&camera->right, camera->screen_dimension.x);
 	return (camera);
 }
