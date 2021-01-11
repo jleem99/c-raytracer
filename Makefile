@@ -6,7 +6,7 @@
 #    By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/06 14:15:13 by jleem             #+#    #+#              #
-#    Updated: 2021/01/11 00:30:48 by jleem            ###   ########.fr        #
+#    Updated: 2021/01/11 01:18:35 by jleem            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,24 +34,22 @@ $(NAME)		: $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $^ main.c -o $(NAME)
 
 $(LIBFT)		:
-	$(MAKE) -C $(LIBFTDIR) bonus
-
-%.o			: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBFLAGS)
+	$(MAKE) -C $(LIBFTDIR) CC=clang CFLAGS=-O3 bonus
 
 clean		:
+	$(MAKE) -C $(LIBFTDIR) clean
 	rm -f $(OBJS)
 
 fclean		: clean
+	$(MAKE) -C $(LIBFTDIR) fclean
 	rm -f $(NAME) $(MODULENAME)
 
 re			: fclean all
 
-# module_		: CFLAGS += -g3 -fsanitize=address
-# module_		: CFLAGS += -g -pg
-module_		: CFLAGS += -O3
-module_		: $(OBJS)
+# module		: CFLAGS += -g3 -fsanitize=address
+# module		: CFLAGS += -g -pg
+module		: CFLAGS += -O3
+module		: $(OBJS)
 	$(AR) $(ARFLAGS) $(MODULENAME) $^
-module		: fclean module_
 
 .PHONY		: all clean fclean re module
