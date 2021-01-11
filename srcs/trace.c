@@ -14,14 +14,35 @@
 #include "object.h"
 #include "hit.h"
 #include "intersection.h"
-
+#include <stdio.h>
+#include <math.h>
 t_trace			*raytrace(t_trace *trace)
 {
 	t_hit	hit;
 	
 	hit = get_ray_intersection_from_scene(trace->ray, trace->scene);
 	if (hit.object)
-		trace->color = hit.object->color;
+	{
+		int a = (hit.object->color & (0xFF << 24)) >> 24;
+		int r = (hit.object->color & (0xFF << 16)) >> 16;
+		int g = (hit.object->color & (0xFF << 8)) >> 8;
+		int b = (hit.object->color & 0xFF);
+		// printf("%d,%d,%d,%d - ", a, r, g, b);
+		t_vec3 normal = vec3_subtract(hit.location, hit.object->location);
+		float dot = vec3_dot_product(
+			vec3_normalize(normal),
+			vec3_normalize(make_vec3(0.5, 0.6, -1))
+		);
+		float luminance = (dot + 1) / 2;
+		// printf("%f\n", luminance);
+		a *= luminance;
+		r *= luminance;
+		g *= luminance;
+		b *= luminance;
+		// printf("%d,%d,%d,%d\n", a, r, g, b);
+		trace->color = (a << 24) | (r << 16) | (g << 8) | b;
+		// trace->color = hit.object->color;
+	}
 	else
 		trace->color = 0xffcdfffc;
 	trace->count--;
