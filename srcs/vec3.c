@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
+/*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 09:38:58 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/10 18:20:45 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/12 03:19:21 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ t_vec3			vec3_normalize(t_vec3 v)
 	return (ret);
 }
 
-float			vec3_dot_product(t_vec3 u, t_vec3 v)
+float			vec3_dot(t_vec3 u, t_vec3 v)
 {
 	return (u.x * v.x + u.y * v.y + u.z * v.z);
 }
 
-t_vec3			vec3_cross_product(t_vec3 u, t_vec3 v)
+t_vec3			vec3_cross(t_vec3 u, t_vec3 v)
 {
 	t_vec3	ret;
 

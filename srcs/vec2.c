@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
+/*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 23:47:29 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/10 18:20:45 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/12 03:19:09 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_vec2			vec2_normalize(t_vec2 v)
 	return (ret);
 }
 
-float			vec2_dot_product(t_vec2 u, t_vec2 v)
+float			vec2_dot(t_vec2 u, t_vec2 v)
 {
 	return (u.x * v.x + u.y * v.y);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec2i.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
+/*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 00:08:36 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/10 18:20:45 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/12 03:19:09 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_vec2i			vec2i_subtract(t_vec2i u, t_vec2i v)
 	return (ret);
 }
 
-int				vec2i_dot_product(t_vec2i u, t_vec2i v)
+int				vec2i_dot(t_vec2i u, t_vec2i v)
 {
 	return (u.x * v.x + u.y * v.y);
 }
