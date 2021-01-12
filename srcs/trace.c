@@ -29,7 +29,7 @@ t_trace			*raytrace(t_trace *trace)
 		int b = (hit.object->color & 0xFF);
 		// printf("%d,%d,%d,%d - ", a, r, g, b);
 		t_vec3 normal = vec3_subtract(hit.location, hit.object->location);
-		float dot = vec3_dot_product(
+		float dot = vec3_dot(
 			vec3_normalize(normal),
 			vec3_normalize(make_vec3(0.5, 0.6, -1))
 		);
@@ -61,12 +61,12 @@ void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *put_pixel(in
 	t_vec2		index_unit;
 
 	trace->ray->origin = camera->origin;
-	for (index.y = height - 1; index.y >= 0; index.y--)
+	for (index.y = 0; index.y < height; index.y++)
 	{
 		for (index.x = 0; index.x < width; index.x++)
 		{
 			index_unit.x = (float)index.x / (float)(width - 1);		// 0 to 1
-			index_unit.y = (float)index.y / (float)(height - 1);	// 0 to 1
+			index_unit.y = 1.f - (float)index.y / (float)(height - 1);	// 0 to 1
 
 			trace->ray->forward = camera->forward;
 			trace->ray->forward = vec3_add(trace->ray->forward,
