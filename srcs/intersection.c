@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 10:30:27 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/13 03:04:01 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/14 17:50:24 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,22 @@
 t_hit			get_ray_intersection_from_object(t_ray *ray, t_object *obj)
 {
 	t_hit			ret;
-	t_vec3 const	r_unit = vec3_normalize(ray->forward);
-	t_vec3 const	d = vec3_subtract(obj->location, ray->origin);
-	float const		d_flat = vec3_dot(r_unit, d);
-	float const		e = obj->radius * obj->radius - (vec3_square(d) - d_flat * d_flat);
 
 	ret.object = obj;
-	if (obj->type == obj_type_sphere && e > 0)
+	if (obj->type == obj_type_sphere)
 	{
-		ret.location = vec3_multiply(r_unit, d_flat - sqrtf(e));
-		ret.distance = vec3_length(ret.location);
-		ret.location = vec3_add(ray->origin, ret.location);
-		return (ret);
+		t_vec3 const	d = vec3_subtract(obj->location, ray->origin);
+		t_vec3 const	r_unit = vec3_normalize(ray->forward);
+		float const		d_flat = vec3_dot(r_unit, d);
+		float const		e = obj->radius * obj->radius - (vec3_square(d) - d_flat * d_flat);
+
+		if (e > 0)
+		{
+			ret.location = vec3_multiply(r_unit, d_flat - sqrtf(e));
+			ret.distance = vec3_length(ret.location);
+			ret.location = vec3_add(ray->origin, ret.location);
+			return (ret);
+		}
 	}
 	else if (obj->type == obj_type_plane)
 	{
