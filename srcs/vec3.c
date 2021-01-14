@@ -6,12 +6,11 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 09:38:58 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/12 03:19:21 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/14 17:28:22 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
-#include <math.h>
 
 t_vec3			vec3_add(t_vec3 u, t_vec3 v)
 {
@@ -36,7 +35,7 @@ t_vec3			vec3_subtract(t_vec3 u, t_vec3 v)
 t_vec3			vec3_normalize(t_vec3 v)
 {
 	t_vec3		ret;
-	float const w = sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
+	float const w = vec3_length(v);
 
 	ret.x = v.x / w;
 	ret.y = v.y / w;

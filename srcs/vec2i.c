@@ -6,12 +6,11 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 00:08:36 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/12 03:19:09 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/14 17:28:57 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
-#include <math.h>
 
 t_vec2i			vec2i_add(t_vec2i u, t_vec2i v)
 {
