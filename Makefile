@@ -6,12 +6,13 @@
 #    By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/06 14:15:13 by jleem             #+#    #+#              #
-#    Updated: 2021/01/11 01:18:35 by jleem            ###   ########.fr        #
+#    Updated: 2021/01/14 12:11:49 by jleem            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			= clang
-CFLAGS		= -Wall -Wextra -Werror -I$(INCDIR) -I$(LIBFTDIR)
+CFLAGS		= -Wall -Wextra -Werror
+override CFLAGS	+= -I$(INCDIR) -I$(LIBFTDIR)
 # LIBFLAGS	= -lft -lm
 
 AR			= ar
@@ -46,8 +47,6 @@ fclean		: clean
 
 re			: fclean all
 
-# module		: CFLAGS += -g3 -fsanitize=address
-# module		: CFLAGS += -g -pg
 module		: CFLAGS += -O3
 module		: $(OBJS)
 	$(AR) $(ARFLAGS) $(MODULENAME) $^
