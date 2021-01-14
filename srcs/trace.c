@@ -16,11 +16,11 @@
 #include "intersection.h"
 #include <stdio.h>
 #include <math.h>
-t_trace			*raytrace(t_trace *trace)
+static t_trace	*raytrace(t_trace *trace)
 {
 	t_hit	hit;
-	
-	hit = get_ray_intersection_from_scene(trace->ray, trace->scene);
+
+	hit = get_ray_intersection_from_scene(trace);
 	if (hit.object)
 	{
 		int a = (hit.object->color & (0xFF << 24)) >> 24;
@@ -52,7 +52,7 @@ t_trace			*raytrace(t_trace *trace)
 	else
 		return (raytrace(trace));
 }
-
+#include <stdlib.h>
 void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *put_pixel(int, int, int))
 {
 	int const	width = camera->viewport_dimension.x;
@@ -60,6 +60,8 @@ void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *put_pixel(in
 	t_vec2i		index;
 	t_vec2		index_unit;
 
+	if (!(trace->hits = malloc(sizeof(t_hit) * trace->scene->objects->size)))
+		return ;
 	trace->ray->origin = camera->origin;
 	for (index.y = 0; index.y < height; index.y++)
 	{
@@ -78,4 +80,5 @@ void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *put_pixel(in
 			put_pixel(index.x, index.y, trace->color);
 		}
 	}
+	free(trace->hits);
 }

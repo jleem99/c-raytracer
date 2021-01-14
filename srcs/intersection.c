@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 10:30:27 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/14 17:50:24 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/14 18:45:33 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,29 @@ t_hit			get_ray_intersection_from_object(t_ray *ray, t_object *obj)
 	return (hit_zero());
 }
 
-t_hit			get_ray_intersection_from_scene(t_ray *ray, t_scene *scene)
+t_hit			get_ray_intersection_from_scene(t_trace *trace)
 {
-	t_hit	ret;
-	t_hit	*hits;
-	size_t	i;
+	t_scene	const	*scene = trace->scene;
+	t_ray	const	*ray = trace->ray;
+	t_hit			ret;
+	size_t			i;
 
 	ret.object = NULL;
 	ret.distance = 0;
-	if (scene->objects->size == 0 ||
-		!(hits = malloc(sizeof(*hits) * scene->objects->size)))
+	if (scene->objects->size == 0)
 		return (ret);
 	i = 0;
 	while (i < scene->objects->size)
 	{
-		hits[i] = get_ray_intersection_from_object(ray, scene->objects->data[i]);
+		trace->hits[i] = get_ray_intersection_from_object(ray, scene->objects->data[i]);
 		i++;
 	}
 	i = 0;
 	while (i < scene->objects->size)
 	{
-		if (!ret.object || (hits[i].object && ret.distance > hits[i].distance))
-			ret = hits[i];
+		if (!ret.object || (trace->hits[i].object && ret.distance > trace->hits[i].distance))
+			ret = trace->hits[i];
 		i++;
 	}
-	free(hits);
 	return (ret);
 }
