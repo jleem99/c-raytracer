@@ -68,13 +68,13 @@ void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *put_pixel(in
 		for (index.x = 0; index.x < width; index.x++)
 		{
 			index_unit.x = (float)index.x / (float)(width - 1);		// 0 to 1
-			index_unit.y = 1.f - (float)index.y / (float)(height - 1);	// 0 to 1
+			index_unit.y = (float)index.y / (float)(height - 1);	// 0 to 1
 
 			trace->ray->forward = camera->forward;
 			trace->ray->forward = vec3_add(trace->ray->forward,
-									vec3_multiply(camera->right, index_unit.x - 0.5));
+									vec3_multiply(camera->right, 0.5f - index_unit.x));
 			trace->ray->forward = vec3_add(trace->ray->forward,
-									vec3_multiply(camera->up, index_unit.y - 0.5));
+									vec3_multiply(camera->up, 0.5f - index_unit.y));
 			trace->count = 1;
 			raytrace(trace);
 			put_pixel(index.x, index.y, trace->color);
