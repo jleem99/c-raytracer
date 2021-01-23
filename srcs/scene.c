@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:57:58 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/10 23:51:13 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/23 20:59:45 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void			free_scene(t_scene *scene)
 
 t_object		*scene_get_object(t_scene *scene, size_t index)
 {
-    return (scene->objects->data[index]);
+	return (scene->objects->data[index]);
 }
 
 t_camera		*scene_get_camera(t_scene *scene, size_t index)
 {
-    return (scene->cameras->data[index]);
+	return (scene->cameras->data[index]);
 }
