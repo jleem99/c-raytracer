@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jleem <jleem@students.42seoul.kr>          +#+  +:+       +#+        */
+/*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 13:00:36 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/10 18:20:45 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/24 21:04:04 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,11 @@ float			vec3_square(t_vec3 v)
 float			vec3_length(t_vec3 v)
 {
 	return (sqrtf(vec3_square(v)));
+}
+
+t_vec3			vec3_reflect(t_vec3 v, t_vec3 e_n)
+{
+	return (vec3_subtract(
+		v, vec3_multiply(e_n, 2 * vec3_dot(v, e_n))
+	));
 }

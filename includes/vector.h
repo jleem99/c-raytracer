@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 09:27:46 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/12 03:19:21 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/24 20:32:14 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_vec3			make_vec3(float x, float y, float z);
 t_vec3			vec3_multiply(t_vec3 v, float k);
 float			vec3_square(t_vec3 v);
 float			vec3_length(t_vec3 v);
+t_vec3			vec3_reflect(t_vec3 v, t_vec3 e_n);
 
 typedef struct	s_vec2
 {
