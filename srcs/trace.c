@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: index.yleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:36:39 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/07 00:17:51 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/25 20:37:11 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "intersection.h"
 #include <stdio.h>
 #include <math.h>
+#include "rgba.h"
 static t_trace	*raytrace(t_trace *trace)
 {
 	t_hit	hit;
@@ -23,28 +24,19 @@ static t_trace	*raytrace(t_trace *trace)
 	hit = get_ray_intersection_from_scene(trace);
 	if (hit.object)
 	{
-		int a = (hit.object->color & (0xFF << 24)) >> 24;
-		int r = (hit.object->color & (0xFF << 16)) >> 16;
-		int g = (hit.object->color & (0xFF << 8)) >> 8;
-		int b = (hit.object->color & 0xFF);
-		// printf("%d,%d,%d,%d - ", a, r, g, b);
-		t_vec3 normal = vec3_subtract(hit.location, hit.object->location);
-		float dot = vec3_dot(
-			vec3_normalize(normal),
-			vec3_normalize(make_vec3(0.5, 0.6, -1))
-		);
+		t_vec3 normal = vec3_normalize(vec3_subtract(hit.location, hit.object->location));
+		float dot = vec3_dot(normal, vec3_normalize(make_vec3(-0.5, -0.6, 1)));
 		float luminance = (dot + 1) / 2;
-		// printf("%f\n", luminance);
-		a *= luminance;
-		r *= luminance;
-		g *= luminance;
-		b *= luminance;
-		// printf("%d,%d,%d,%d\n", a, r, g, b);
-		trace->color = (a << 24) | (r << 16) | (g << 8) | b;
-		// trace->color = hit.object->color;
+
+		trace->color = rgba_blend(
+			rgba_multiply(hit.object->color, luminance), trace->color, 0.5f
+		);
+
+		if (trace->count > 1)
+			trace->ray->forward = vec3_reflect(trace->ray->forward, normal);
 	}
 	else
-		trace->color = 0xffcdfffc;
+		trace->color = rgba_blend(0xFFCDFFFC, trace->color, 0.5f);
 	trace->count--;
 
 	if (trace->count == 0)
