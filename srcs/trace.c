@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:36:39 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/25 20:37:11 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/25 20:38:06 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *put_pixel(in
 
 			trace->ray->forward = camera->forward;
 			trace->ray->forward = vec3_add(trace->ray->forward,
-									vec3_multiply(camera->right, 0.5f - index_unit.x));
+									vec3_multiply(camera->right, index_unit.x - 0.5f));
 			trace->ray->forward = vec3_add(trace->ray->forward,
 									vec3_multiply(camera->up, 0.5f - index_unit.y));
-			trace->count = 1;
+			trace->color = 0xFFFFFFFF;
+			trace->count = 2;
 			raytrace(trace);
 			put_pixel(index.x, index.y, trace->color);
 		}
