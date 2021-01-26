@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:19 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/27 00:27:53 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/27 02:39:43 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ typedef struct	s_runner_param
 {
 	t_trace		*trace;
 	t_engine	*engine;
-	int			section_index;
-	int			section_count;
+	int			thread_index;
 }				t_runner_param;
 
 void			raytrace_frame(t_engine *engine);

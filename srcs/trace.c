@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:36:39 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/27 00:41:16 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/27 02:40:14 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ static void		raytrace_runner(t_runner_param *param)
 	int const		height = camera->viewport_dimension.y;
 	t_vec2i			index;
 
-	int const		hstart = height * param->section_index / param->section_count;
-	int const		hend = height * (param->section_index + 1) / param->section_count;
-	printf("hstart / hend: %d / %d\n", hstart, hend);
+	int const		hstart = height * param->thread_index / param->engine->thread_count + 1;
+	int const		hend = height * (param->thread_index + 1) / param->engine->thread_count;
+	printf("[thread %d] hstart / hend: %d / %d\n", param->thread_index, hstart, hend);
 
 	param->trace->ray->origin = camera->origin;
 	for (index.y = hstart; index.y < hend; index.y++)
@@ -104,8 +104,7 @@ void			raytrace_frame(t_engine *engine)
 		params[i].trace = engine->traces[i];
 		params[i].trace->hits = malloc(sizeof(t_hit) * engine->scene->objects->size); // check
 		params[i].engine = engine;
-		params[i].section_index = i;
-		params[i].section_count = engine->thread_count;
+		params[i].thread_index = i;
 		pthread_create(&tid[i], NULL, raytrace_runner, &params[i]);
 		i++;
 	}
