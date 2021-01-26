@@ -6,11 +6,12 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:36:39 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/26 18:36:00 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/27 00:41:16 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "trace.h"
+#include "engine.h"
 #include "object.h"
 #include "hit.h"
 #include "intersection.h"
@@ -20,11 +21,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static t_trace	*raytrace(t_trace *trace)
+static t_trace	*raytrace(t_trace *trace, t_scene *scene)
 {
 	t_hit	hit;
 
-	hit = get_ray_intersection_from_scene(trace);
+	hit = get_ray_intersection_from_scene(trace, scene);
 	if (hit.object)
 	{
 		t_vec3 normal = vec3_normalize(vec3_subtract(hit.location, hit.object->location));
@@ -45,35 +46,75 @@ static t_trace	*raytrace(t_trace *trace)
 	if (trace->count == 0)
 		return (trace);
 	else
-		return (raytrace(trace));
+		return (raytrace(trace, scene));
 }
-void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *put_pixel(int, int, int))
-{
-	int const	width = camera->viewport_dimension.x;
-	int const	height = camera->viewport_dimension.y;
-	t_vec2i		index;
-	t_vec2		index_unit;
 
-	if (!(trace->hits = malloc(sizeof(t_hit) * trace->scene->objects->size)))
-		return ;
-	trace->ray->origin = camera->origin;
-	for (index.y = 0; index.y < height; index.y++)
+static void		raytrace_pixel(t_trace *trace, t_scene *scene, float x, float y)
+{
+	t_camera const	*camera = scene_get_camera(scene, 0);
+
+	trace->ray->forward = camera->forward;
+	trace->ray->forward =
+		vec3_add(trace->ray->forward, vec3_multiply(camera->right, x - 0.5f));
+	trace->ray->forward =
+		vec3_add(trace->ray->forward, vec3_multiply(camera->up, 0.5f - y));
+	trace->color = 0xFFFFFFFF;
+	trace->count = 2;
+	raytrace(trace, scene);
+}
+
+#include <pthread.h>
+static void		raytrace_runner(t_runner_param *param)
+{
+	t_camera const	*camera = scene_get_camera(param->engine->scene, 0);
+	int const		width = camera->viewport_dimension.x;
+	int const		height = camera->viewport_dimension.y;
+	t_vec2i			index;
+
+	int const		hstart = height * param->section_index / param->section_count;
+	int const		hend = height * (param->section_index + 1) / param->section_count;
+	printf("hstart / hend: %d / %d\n", hstart, hend);
+
+	param->trace->ray->origin = camera->origin;
+	for (index.y = hstart; index.y < hend; index.y++)
 	{
 		for (index.x = 0; index.x < width; index.x++)
 		{
-			index_unit.x = (float)index.x / (float)(width - 1);		// 0 to 1
-			index_unit.y = (float)index.y / (float)(height - 1);	// 0 to 1
-
-			trace->ray->forward = camera->forward;
-			trace->ray->forward = vec3_add(trace->ray->forward,
-									vec3_multiply(camera->right, index_unit.x - 0.5f));
-			trace->ray->forward = vec3_add(trace->ray->forward,
-									vec3_multiply(camera->up, 0.5f - index_unit.y));
-			trace->color = 0xFFFFFFFF;
-			trace->count = 2;
-			raytrace(trace);
-			put_pixel(index.x, index.y, trace->color);
+			raytrace_pixel(
+				param->trace,
+				param->engine->scene,
+				(float)index.x / (width - 1),
+				(float)index.y / (height - 1)
+			);
+			param->engine->put_pixel(index.x, index.y, param->trace->color);
 		}
 	}
-	free(trace->hits);
+	pthread_exit(0);
+}
+
+void			raytrace_frame(t_engine *engine)
+{
+	t_runner_param	*params = malloc(sizeof(t_runner_param) * engine->thread_count); // check
+	pthread_t		*tid = malloc(sizeof(pthread_t) * engine->thread_count); // check
+	int				i;
+
+	i = 0;
+	while (i < engine->thread_count)
+	{
+		params[i].trace = engine->traces[i];
+		params[i].trace->hits = malloc(sizeof(t_hit) * engine->scene->objects->size); // check
+		params[i].engine = engine;
+		params[i].section_index = i;
+		params[i].section_count = engine->thread_count;
+		pthread_create(&tid[i], NULL, raytrace_runner, &params[i]);
+		i++;
+	}
+	i = 0;
+	while (i < engine->thread_count)
+		pthread_join(tid[i++], NULL);
+	i = 0;
+	while (i < engine->thread_count)
+		free(params[i++].trace->hits);
+	free(params);
+	free(tid);
 }

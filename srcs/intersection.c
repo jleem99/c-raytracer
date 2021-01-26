@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 10:30:27 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/14 18:45:33 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/26 21:59:38 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ t_hit			get_ray_intersection_from_object(t_ray *ray, t_object *obj)
 	return (hit_zero());
 }
 
-t_hit			get_ray_intersection_from_scene(t_trace *trace)
+t_hit			get_ray_intersection_from_scene(t_trace *trace, t_scene *scene)
 {
-	t_scene	const	*scene = trace->scene;
 	t_ray	const	*ray = trace->ray;
 	t_hit			ret;
 	size_t			i;

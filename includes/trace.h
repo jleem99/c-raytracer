@@ -6,27 +6,41 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:19 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/14 18:22:42 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/27 00:27:53 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TRACE_H
 # define TRACE_H
 
-# include <stddef.h>
 # include "scene.h"
 # include "ray.h"
 # include "camera.h"
+# include <stddef.h>
 
 typedef struct	s_trace
 {
-	t_scene		*scene;
 	t_ray		*ray;
 	int			color;
 	size_t		count;
 	t_hit		*hits;
 }				t_trace;
 
-void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *fp(int, int, int));
+typedef struct	s_engine t_engine;
+
+typedef struct	s_runner_param
+{
+	t_trace		*trace;
+	t_engine	*engine;
+	int			section_index;
+	int			section_count;
+}				t_runner_param;
+
+void			raytrace_frame(t_engine *engine);
+
+t_trace			*init_trace(void);
+t_trace			**init_traces(int thread_count);
+void			free_trace(t_trace *trace);
+void			free_traces(t_trace **traces, int index);
 
 #endif
