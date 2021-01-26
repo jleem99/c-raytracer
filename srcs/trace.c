@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:36:39 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/25 20:38:06 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/26 18:36:00 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 #include "object.h"
 #include "hit.h"
 #include "intersection.h"
-#include <stdio.h>
-#include <math.h>
 #include "rgba.h"
+
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 static t_trace	*raytrace(t_trace *trace)
 {
 	t_hit	hit;
@@ -44,7 +47,6 @@ static t_trace	*raytrace(t_trace *trace)
 	else
 		return (raytrace(trace));
 }
-#include <stdlib.h>
 void			raytrace_with_camera(t_trace *trace, t_camera *camera, void *put_pixel(int, int, int))
 {
 	int const	width = camera->viewport_dimension.x;
