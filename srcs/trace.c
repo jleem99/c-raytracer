@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:36:39 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/27 02:40:14 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/29 00:56:53 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static t_trace	*raytrace(t_trace *trace, t_scene *scene)
 	hit = get_ray_intersection_from_scene(trace, scene);
 	if (hit.object)
 	{
-		t_vec3 normal = vec3_normalize(vec3_subtract(hit.location, hit.object->location));
-		float dot = vec3_dot(normal, vec3_normalize(make_vec3(-0.5, -0.6, 1)));
+		t_vec3 normal = vec3_norm(vec3_sub(hit.location, hit.object->location));
+		float dot = vec3_dot(normal, vec3_norm(vec3(-0.5, -0.6, 1)));
 		float luminance = (dot + 1) / 2;
 
 		trace->color = rgba_blend(
@@ -55,9 +55,9 @@ static void		raytrace_pixel(t_trace *trace, t_scene *scene, float x, float y)
 
 	trace->ray->forward = camera->forward;
 	trace->ray->forward =
-		vec3_add(trace->ray->forward, vec3_multiply(camera->right, x - 0.5f));
+		vec3_add(trace->ray->forward, vec3_mul(camera->right, x - 0.5f));
 	trace->ray->forward =
-		vec3_add(trace->ray->forward, vec3_multiply(camera->up, 0.5f - y));
+		vec3_add(trace->ray->forward, vec3_mul(camera->up, 0.5f - y));
 	trace->color = 0xFFFFFFFF;
 	trace->count = 2;
 	raytrace(trace, scene);

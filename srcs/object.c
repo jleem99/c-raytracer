@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 07:29:51 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/12 02:32:31 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/29 00:56:53 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_object			*make_plane(t_vec3 location, t_vec3 normal, int color)
 		return (NULL);
 	object->location = location;
 	object->type = obj_type_plane;
-	object->forward = vec3_normalize(normal);
+	object->forward = vec3_norm(normal);
 	object->color = color;
 	return (object);
 }

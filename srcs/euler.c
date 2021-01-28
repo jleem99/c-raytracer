@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 19:39:08 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/25 19:59:53 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/29 00:51:36 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	vec3_to_euler(t_vec3 e_v, float *out_yaw, float *out_pitch)
 
 t_vec3	euler_to_vec3(float yaw, float pitch)
 {
-	return (make_vec3(
+	return (vec3(
 		cosf(yaw) * cosf(pitch),
 		sinf(yaw) * cosf(pitch),
 		sinf(pitch)

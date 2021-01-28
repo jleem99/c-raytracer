@@ -6,11 +6,21 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 09:38:58 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/14 17:28:22 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/29 01:00:14 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
+
+t_vec3			vec3(float x, float y, float z)
+{
+	t_vec3	ret;
+
+	ret.x = x;
+	ret.y = y;
+	ret.z = z;
+	return (ret);
+}
 
 t_vec3			vec3_add(t_vec3 u, t_vec3 v)
 {
@@ -22,7 +32,7 @@ t_vec3			vec3_add(t_vec3 u, t_vec3 v)
 	return (ret);
 }
 
-t_vec3			vec3_subtract(t_vec3 u, t_vec3 v)
+t_vec3			vec3_sub(t_vec3 u, t_vec3 v)
 {
 	t_vec3	ret;
 
@@ -32,28 +42,17 @@ t_vec3			vec3_subtract(t_vec3 u, t_vec3 v)
 	return (ret);
 }
 
-t_vec3			vec3_normalize(t_vec3 v)
+t_vec3			vec3_mul(t_vec3 v, float k)
 {
-	t_vec3		ret;
-	float const w = vec3_length(v);
+	t_vec3	ret;
 
-	ret.x = v.x / w;
-	ret.y = v.y / w;
-	ret.z = v.z / w;
+	ret.x = v.x * k;
+	ret.y = v.y * k;
+	ret.z = v.z * k;
 	return (ret);
 }
 
 float			vec3_dot(t_vec3 u, t_vec3 v)
 {
 	return (u.x * v.x + u.y * v.y + u.z * v.z);
-}
-
-t_vec3			vec3_cross(t_vec3 u, t_vec3 v)
-{
-	t_vec3	ret;
-
-	ret.x = u.y * v.z - u.z * v.y;
-	ret.y = u.z * v.x - u.x * v.z;
-	ret.z = u.x * v.y - u.y * v.x;
-	return (ret);
 }

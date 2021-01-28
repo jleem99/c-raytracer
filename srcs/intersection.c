@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 10:30:27 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/26 21:59:38 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/29 00:56:53 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ t_hit			get_ray_intersection_from_object(t_ray *ray, t_object *obj)
 	ret.object = obj;
 	if (obj->type == obj_type_sphere)
 	{
-		t_vec3 const	d = vec3_subtract(obj->location, ray->origin);
-		t_vec3 const	r_unit = vec3_normalize(ray->forward);
+		t_vec3 const	d = vec3_sub(obj->location, ray->origin);
+		t_vec3 const	r_unit = vec3_norm(ray->forward);
 		float const		d_flat = vec3_dot(r_unit, d);
 		float const		e = obj->radius * obj->radius - (vec3_square(d) - d_flat * d_flat);
 
 		if (e > 0)
 		{
-			ret.location = vec3_multiply(r_unit, d_flat - sqrtf(e));
+			ret.location = vec3_mul(r_unit, d_flat - sqrtf(e));
 			ret.distance = vec3_length(ret.location);
 			ret.location = vec3_add(ray->origin, ret.location);
 			return (ret);
@@ -37,11 +37,11 @@ t_hit			get_ray_intersection_from_object(t_ray *ray, t_object *obj)
 	}
 	else if (obj->type == obj_type_plane)
 	{
-		float tmp = vec3_dot(obj->forward, vec3_subtract(ray->origin, obj->location));
+		float tmp = vec3_dot(obj->forward, vec3_sub(ray->origin, obj->location));
 
 		if (tmp * vec3_dot(obj->forward, ray->forward) < 0)
 		{
-			ret.location = vec3_multiply(ray->forward, - tmp / vec3_dot(obj->forward, ray->forward));
+			ret.location = vec3_mul(ray->forward, - tmp / vec3_dot(obj->forward, ray->forward));
 			ret.distance = vec3_length(ret.location);
 			ret.location = vec3_add(ret.location, ray->origin);
 			return (ret);

@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 13:44:49 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/12 02:49:21 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/29 00:56:20 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 t_vec3			ray_at(t_ray *ray, float t)
 {
-	return (vec3_add(ray->origin, vec3_multiply(ray->forward, t)));
+	return (vec3_add(ray->origin, vec3_mul(ray->forward, t)));
 }
