@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 10:30:27 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/29 00:56:53 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/30 12:35:19 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <stdio.h>
-t_hit			get_ray_intersection_from_object(t_ray *ray, t_object *obj)
+t_hit	get_ray_intersection_from_object(t_ray const *ray, t_object const *obj)
 {
 	t_hit			ret;
 
@@ -30,6 +29,8 @@ t_hit			get_ray_intersection_from_object(t_ray *ray, t_object *obj)
 		if (e > 0)
 		{
 			ret.location = vec3_mul(r_unit, d_flat - sqrtf(e));
+			if (vec3_dot(ret.location, ray->forward) <= 0)
+				return (hit_zero());
 			ret.distance = vec3_length(ret.location);
 			ret.location = vec3_add(ray->origin, ret.location);
 			return (ret);
@@ -50,7 +51,7 @@ t_hit			get_ray_intersection_from_object(t_ray *ray, t_object *obj)
 	return (hit_zero());
 }
 
-t_hit			get_ray_intersection_from_scene(t_trace *trace, t_scene *scene)
+t_hit	get_ray_intersection_from_scene(t_trace *trace, t_scene const *scene)
 {
 	t_ray	const	*ray = trace->ray;
 	t_hit			ret;
