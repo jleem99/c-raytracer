@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:36:39 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/29 00:56:53 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/30 16:31:39 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@
 
 static t_trace	*raytrace(t_trace *trace, t_scene *scene)
 {
-	t_hit	hit;
-
-	hit = get_ray_intersection_from_scene(trace, scene);
+	t_hit const	hit = get_ray_intersection_from_scene(trace, scene);
+	
 	if (hit.object)
 	{
 		t_vec3 normal = vec3_norm(vec3_sub(hit.location, hit.object->location));
@@ -37,10 +36,16 @@ static t_trace	*raytrace(t_trace *trace, t_scene *scene)
 		);
 
 		if (trace->count > 1)
+		{
+			trace->ray->origin = hit.location;
 			trace->ray->forward = vec3_reflect(trace->ray->forward, normal);
+		}
 	}
 	else
+	{
 		trace->color = rgba_blend(0xFFCDFFFC, trace->color, 0.5f);
+		return (trace);
+	}
 	trace->count--;
 
 	if (trace->count == 0)
@@ -53,13 +58,14 @@ static void		raytrace_pixel(t_trace *trace, t_scene *scene, float x, float y)
 {
 	t_camera const	*camera = scene_get_camera(scene, 0);
 
+	trace->ray->origin = camera->origin;
 	trace->ray->forward = camera->forward;
 	trace->ray->forward =
 		vec3_add(trace->ray->forward, vec3_mul(camera->right, x - 0.5f));
 	trace->ray->forward =
 		vec3_add(trace->ray->forward, vec3_mul(camera->up, 0.5f - y));
 	trace->color = 0xFFFFFFFF;
-	trace->count = 2;
+	trace->count = 10;
 	raytrace(trace, scene);
 }
 
@@ -75,7 +81,6 @@ static void		raytrace_runner(t_runner_param *param)
 	int const		hend = height * (param->thread_index + 1) / param->engine->thread_count;
 	printf("[thread %d] hstart / hend: %d / %d\n", param->thread_index, hstart, hend);
 
-	param->trace->ray->origin = camera->origin;
 	for (index.y = hstart; index.y < hend; index.y++)
 	{
 		for (index.x = 0; index.x < width; index.x++)
