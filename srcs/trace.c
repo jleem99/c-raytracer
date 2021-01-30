@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:36:39 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/30 16:31:39 by jleem            ###   ########.fr       */
+/*   Updated: 2021/01/30 19:03:31 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "hit.h"
 #include "intersection.h"
 #include "rgba.h"
+#include "debug.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -70,8 +71,9 @@ static void		raytrace_pixel(t_trace *trace, t_scene *scene, float x, float y)
 }
 
 #include <pthread.h>
-static void		raytrace_runner(t_runner_param *param)
+static void		*raytrace_runner(void *arg)
 {
+	t_runner_param	*param = arg;
 	t_camera const	*camera = scene_get_camera(param->engine->scene, 0);
 	int const		width = camera->viewport_dimension.x;
 	int const		height = camera->viewport_dimension.y;
@@ -102,7 +104,7 @@ void			raytrace_frame(t_engine *engine)
 	t_runner_param	*params = malloc(sizeof(t_runner_param) * engine->thread_count); // check
 	pthread_t		*tid = malloc(sizeof(pthread_t) * engine->thread_count); // check
 	int				i;
-
+	set_debug_engine(engine);
 	i = 0;
 	while (i < engine->thread_count)
 	{
