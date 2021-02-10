@@ -6,7 +6,7 @@
 /*   By: jleem <jleem@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 10:30:27 by jleem             #+#    #+#             */
-/*   Updated: 2021/01/30 12:35:19 by jleem            ###   ########.fr       */
+/*   Updated: 2021/02/02 01:02:34 by jleem            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ t_hit	get_ray_intersection_from_object(t_ray const *ray, t_object const *obj)
 		t_vec3 const	d = vec3_sub(obj->location, ray->origin);
 		t_vec3 const	r_unit = vec3_norm(ray->forward);
 		float const		d_flat = vec3_dot(r_unit, d);
+		if (d_flat < 0)
+			return (hit_zero());
 		float const		e = obj->radius * obj->radius - (vec3_square(d) - d_flat * d_flat);
 
-		if (e > 0)
+		if (e > 0 && d_flat * d_flat > e)
 		{
 			ret.location = vec3_mul(r_unit, d_flat - sqrtf(e));
-			if (vec3_dot(ret.location, ray->forward) <= 0)
-				return (hit_zero());
 			ret.distance = vec3_length(ret.location);
 			ret.location = vec3_add(ray->origin, ret.location);
 			return (ret);
@@ -53,7 +53,7 @@ t_hit	get_ray_intersection_from_object(t_ray const *ray, t_object const *obj)
 
 t_hit	get_ray_intersection_from_scene(t_trace *trace, t_scene const *scene)
 {
-	t_ray	const	*ray = trace->ray;
+	t_ray const		*ray = trace->ray;
 	t_hit			ret;
 	size_t			i;
 
